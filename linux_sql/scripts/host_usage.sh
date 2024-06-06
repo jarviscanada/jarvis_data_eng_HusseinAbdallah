@@ -20,7 +20,7 @@ cpu_idle=$(echo "$vmstat_mb" | tail -1 | awk '{print $15}')
 cpu_kernel=$(echo "$vmstat_mb" | tail -1 | awk '{print $14}')
 disk_io=$(vmstat -d | tail -1 | awk '{print $10}')
 disk_available=$(df -BM / | tail -1 | awk '{print $4}' | sed 's/M//')
-timestamp=$(vmstat -t | tail -1 | awk '{print $18}')
+timestamp=$(vmstat -t | tail -1 | awk '{print $18 " " $19}')
 
 # find matching id
 host_id="(SELECT id FROM host_info WHERE hostname='$hostname')";
