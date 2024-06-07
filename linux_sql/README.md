@@ -64,6 +64,7 @@ host_usage.sh psql_host psql_port db_name psql_user psql_password
 
 ## Database Modeling
 - 'host_info'
+  
 | Column           | Data Type   | Constraints                            | Description                  |
 |------------------|-------------|----------------------------------------|------------------------------|
 | id               | SERIAL      | PRIMARY KEY, NOT NULL                  | Automatically incremented ID |
@@ -75,12 +76,15 @@ host_usage.sh psql_host psql_port db_name psql_user psql_password
 | l2_cache         | INT4        | NOT NULL                               | Size of L2 cache in KB       |
 | timestamp        | TIMESTAMP   | NULL                                   | Timestamp of the record      |
 | total_mem        | INT4        | NULL                                   | Total memory in MB           |
+
 ### Constraints
   - **Primary Key**: `host_info_pk`
     - Enforces unique identifier for each record based on `id`
   - **Unique Constraint**: `host_info_un`
     - Ensures that `hostname` is unique across the table
+      
 - host_usage.sh
+  
 | Column           | Data Type   | Constraints                            | Description                       |
 |------------------|-------------|----------------------------------------|-----------------------------------|
 | timestamp        | TIMESTAMP   | NOT NULL                               | Timestamp of the record           |
@@ -90,6 +94,8 @@ host_usage.sh psql_host psql_port db_name psql_user psql_password
 | cpu_kernel       | INT2        | NOT NULL                               | CPU time spent in kernel mode     |
 | disk_io          | INT4        | NOT NULL                               | Disk I/O operations               |
 | disk_available   | INT4        | NOT NULL                               | Available disk space in MB        |
+
+### Constraints
   - **Foreign Key**: `host_usage_host_info_fk`
     - Ensures `host_id` references a valid `id` in the `host_info` table
 
@@ -101,7 +107,7 @@ Bash scripts were tested by checking the psql tables after using the scripts. Ch
 # Deployment
 The psql instance was containerized within docker, and was automated on my Rocky linux instance using crontab. All scripts are published and available on GitHub.
 
-#Improvements
+# Improvements
 - Collect CPU usage frequency information
 - Collect data on each CPU core rather than altogether, as well as different disks in the case of multiple disks
 - Handle errors in the case that the tables don't exist in host_info.sh and host_usage.sh
