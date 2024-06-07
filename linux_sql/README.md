@@ -6,7 +6,7 @@ This project contains a series of bash scripts which will be used by users wishi
 # Quick start
 - First, a psql instance is started using ./scripts/psql_docker.sh
 ```bash
-# create a psql database with the given username and password in a docker container
+# create a psql database with the username 'host_agent' and the password 'password'
 psql_docker.sh create host_agent password
 
 # start the docker container
@@ -28,7 +28,6 @@ host_usage.sh localhost 5432 host_agent postgres password
 - To have this automated, crontab can be used. To track usage stats every minute, you can use:
 ```bash
 * * * * * bash host_usage.sh localhost 5432 host_agent postgres password > /tmp/host_usage.log
-
 ```
 
 # Implementation
